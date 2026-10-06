@@ -14,7 +14,7 @@ let firstWordLetters = new Array();
 let secondWordLetters = new Array();
 let subLetters = firstWordLetters;
 let mode = "singlePlayer";
-const socket = io("http://localhost:4000");
+const socket = io();
 let id;
 let isDataReceived = false;
 let time = 20;
