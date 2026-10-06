@@ -265,6 +265,7 @@ async function sendWord(id) {
         io.to(id).emit("word-error", {
             message: "Unable to load a word right now. Please try again."
         });
+        io.to(id).emit("error", "Unable to load a word right now. Please try again.");
     }
 }
 

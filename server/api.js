@@ -1,4 +1,8 @@
+
 /* let words = [];
+=======
+let words = [];
+>>>>>>> 41867de2b00f4f40d69bfc1008983f225acb8174
 
 async function fetchWords() {
     try {
@@ -56,6 +60,7 @@ async function getWord() {
         hint,
         wordType
     };
+<<<<<<< HEAD
 }
  */
 
@@ -90,3 +95,4 @@ function getWord() {
 
 
 module.exports = { getWord };
+
