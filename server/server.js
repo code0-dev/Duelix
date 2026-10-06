@@ -262,9 +262,7 @@ async function sendWord(id) {
     } catch (err) {
         console.error("Could not get word:", err.message);
 
-        io.to(id).emit("word-error", {
-            message: "Unable to load a word right now. Please try again."
-        });
+        io.to(id).emit("error", "Unable to load a word right now. Please try again.");
     }
 }
 
