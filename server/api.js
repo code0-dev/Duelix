@@ -17,7 +17,7 @@ async function fetchWords() {
 
 
 async function getWord() {
-    if (words.length <= 0) {
+    if (!words) {
         words = await fetchWords();
     } 
     //console.log(`length ${words.length}`);
