@@ -1,0 +1,196 @@
+<DOCTYPE html>
+  <html>
+    <head>
+      <title>DUELIX</title>
+
+      <meta charset="UTF-8" />
+      <meta name="author" content="alisante" />
+      <meta name="description" content="" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="refresh" content="" />
+      <link rel="stylesheet" href="./duelix.css" />
+    </head>
+
+    <body>
+      <header class="header">
+        <h1 id="duelixHeader">DUELIX</h1>
+      </header>
+
+      <div id="toast-container"></div>
+
+      <main class="main-content">
+        <!--loader-->
+        <div class="pl" id="loader">
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__dot"></div>
+          <div class="pl__text">Loading…</div>
+        </div>
+
+        <!-- DUELIX INTRO -->
+        <div class="duelix-splash" id="duelixSplash">
+          <div class="duelix-splash-word" id="duelixSplashWord">DUELIX</div>
+          <div class="duelix-splash-line"></div>
+        </div>
+
+        <section class="duo-choice-cont" id="duo-choice-cont">
+          <p class="duo-label" id="duo-label">duo · same word</p>
+          <button class="duo-btn primary" id="create-room-btn">
+            create room
+          </button>
+          <button class="duo-btn outline" id="join-room-btn">join room</button>
+          <button class="back-btn" id="back-to-modes-btn">← back</button>
+        </section>
+
+        <section class="join-code-cont" id="join-code-cont">
+          <p class="duo-label">enter code</p>
+          <input
+            type="text"
+            class="input-field"
+            id="room-code-input"
+            placeholder="A3F9"
+            maxlength="4"
+          />
+          <button class="duo-btn primary" id="submit-code-btn">join</button>
+          <button class="back-btn" id="back-to-choice-btn">← back</button>
+        </section>
+
+        <section class="waiting-cont" id="waiting-cont">
+          <p class="duo-label">room code</p>
+          <div class="room-code-display">
+            <span id="room-code-text">----</span>
+            <button id="copy-code-btn" title="copy code">⧉</button>
+          </div>
+          <p class="waiting-msg">
+            <span class="pulse-dot"></span> waiting for opponent...
+          </p>
+          <button class="back-btn" id="cancel-room-btn">cancel</button>
+        </section>
+
+        <div id="waitPopup" class="popup hidden">
+          <div class="popup-box">
+            <div class="spinner"></div>
+            <p>Waiting for the other player to join...</p>
+          </div>
+        </div>
+
+        <div class="timerCont" id="timerCont">
+          <span class="timer" id="timer">20</span>
+        </div>
+
+        <div class="score-card" id="score-card">
+          <div class="score-title">DUO-SAME</div>
+
+          <div class="score-row">
+            <span>You</span>
+            <strong id="your-score">7 <small>points</small></strong>
+          </div>
+
+          <div class="score-row">
+            <span>Opponent</span>
+            <strong id="opponent-score">9 <small>points</small></strong>
+          </div>
+        </div>
+
+        <div class="custom-word-card" id="custom-word-card">
+          <div class="custom-word-header">
+            <div class="word-icon">📕</div>
+
+            <div>
+              <h2>Create Your Word</h2>
+              <p>Challenge someone with your own word.</p>
+            </div>
+          </div>
+
+          <form id="customWordForm" class="customWordForm">
+            <div class="input-group">
+              <label for="custom-word">Your Word</label>
+
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="custom-word"
+                  placeholder="Enter a word..."
+                  autocomplete="off"
+                  minlength="3"
+                  maxlength="20"
+                  required
+                />
+
+                <span class="character-count" id="wordCount">0/20</span>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="custom-hint"> Hint </label>
+
+              <div class="input-wrapper">
+                <textarea
+                  id="custom-hint"
+                  placeholder="Give them a clue..."
+                  minlength="5"
+                  maxlength="70"
+                  rows="3"
+                  required
+                ></textarea>
+
+                <span class="character-count" id="hintCount">0/70</span>
+              </div>
+            </div>
+            <button type="submit" class="create-word-btn" id="submit-word-btn">
+              <span>Create Challenge</span>
+              <span class="arrow">→</span>
+            </button>
+          </form>
+        </div>
+
+        <section class="message-cont" id="message-cont">
+          <p id="message"></p>
+          <button id="play-again-btn">play again</button>
+        </section>
+
+        <div class="cont">
+          <aside class="chances">
+            chances <span id="number-of-chances">7</span>
+          </aside>
+
+          <div class="word-cont" id="word-cont"></div>
+          <form>
+            <input
+              type="text"
+              class="input-field"
+              id="input-field"
+              placeholder="guess a letter or word..."
+            />
+            <button type="submit" id="submit-btn">ok</button>
+          </form>
+          <div class="attempted-letters"></div>
+          <p class="hint" id="hint"></p>
+        </div>
+      </main>
+
+      <footer class="duelix-footer">
+        <div class="mode-cont">
+          <button class="mode-btn active-mode-btn" data-mode="singlePlayer">
+            single player
+          </button>
+          <button class="mode-btn" data-mode="duo-same">duo · same word</button>
+          <button class="mode-btn" data-mode="duo-exchange">
+            duo · exchange
+          </button>
+        </div>
+      </footer>
+
+      <script src="/socket.io/socket.io.js"></script>
+      <script type="module" src="./app.js"></script>
+    </body>
+  </html>
+</DOCTYPE>
