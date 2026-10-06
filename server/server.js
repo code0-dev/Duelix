@@ -256,8 +256,16 @@ io.on("connection", (socket) => {
 app.use(express.static(path.join(__dirname, "..", "client", "static")));
 
 async function sendWord(id) {
-    const data = await getWord();
-    io.to(id).emit("get-data", data);
+    try {
+        const data = await getWord();
+        io.to(id).emit("get-data", data);
+    } catch (err) {
+        console.error("Could not get word:", err.message);
+
+        io.to(id).emit("word-error", {
+            message: "Unable to load a word right now. Please try again."
+        });
+    }
 }
 
 function generateCode() {
