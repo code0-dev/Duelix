@@ -1,37 +1,62 @@
-
 let words = [];
+
 async function fetchWords() {
     try {
         const API = "https://lexora-words-api.onrender.com/words";
-      const res = await fetch(API);
-      words = await res.json();
-      return words;
-      
+
+        const res = await fetch(API);
+
+        // Check HTTP status before trying to parse JSON
+        if (!res.ok) {
+            throw new Error(`Word API returned ${res.status}: ${res.statusText}`);
+        }
+
+        const data = await res.json();
+
+        // Make sure we actually received an array
+        if (!Array.isArray(data) || data.length === 0) {
+            throw new Error("Word API returned an empty or invalid word list");
+        }
+
+        words = data;
+
+        console.log(`Loaded ${words.length} words`);
+
+        return words;
+
     } catch (err) {
-      console.error({success:  false, message: `error fetching data: ${err}`});
-      console.error(`cause: ${err.cause}`);
-      
-      return words;
+        console.error("Failed to fetch words:", err.message);
+
+        return [];
     }
 }
 
 
 async function getWord() {
-    if (!words) {
-        words = await fetchWords();
-    } 
-    //console.log(`length ${words.length}`);
-    
+
+    // Fetch if we don't currently have words
+    if (words.length === 0) {
+        await fetchWords();
+    }
+
+    // Don't let an empty API response crash the server
+    if (words.length === 0) {
+        throw new Error("No words are currently available");
+    }
+
     const randomWordIndex = Math.floor(Math.random() * words.length);
+
     const word = words[randomWordIndex].word;
     const hint = words[randomWordIndex].hint;
-    let wordType = word.includes(" ")? "double": "single";
-    
+
+    const wordType = word.includes(" ") ? "double" : "single";
+
     return {
         word,
         hint,
         wordType
-    }
+    };
 }
 
-module.exports = {getWord}
+
+module.exports = { getWord };
