@@ -701,6 +701,29 @@ function createInnerLoader() {
   innerLoader = innerLoaderCont; // document.getElementById("inner-loader");
 }
 
+
+//const scoreCard = document.getElementById("score-card");
+const gameContainer = document.querySelector(".cont");
+//const customWordCard = document.getElementById("custom-word-card");
+
+const mobileView = window.matchMedia("(max-width: 600px)");
+
+function positionScoreCard() {
+    if (mobileView.matches && (mode === "duo-same" || mode === "duo-exchange") && isGameRunning) {
+        // Move below the game container
+        document.querySelector(".score-card").style.display = "grid";
+        gameContainer.insertAdjacentElement("afterend", scoreCard);
+    } else {
+        // Restore its original position
+        customWordCardCont.insertAdjacentElement("beforebegin", scoreCard);
+    }
+}
+
+positionScoreCard();
+
+mobileView.addEventListener("change", positionScoreCard);
+
+
 const splash = document.getElementById("duelixSplash");
 
 if (sessionStorage.getItem("duelixIntroShown")) {

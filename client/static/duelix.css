@@ -1734,3 +1734,63 @@ form button:hover {
     padding: 8px 3px;
   }
 }
+
+
+
+
+
+@media screen and (max-width: 600px) {
+
+    .score-card {
+        /* display: grid !important; */
+        grid-template-columns: repeat(2, 1fr);
+        width: calc(100% - 36px) !important;
+        margin: 18px auto 25px !important;
+        padding: 16px !important;
+
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+    }
+
+    .score-title {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #303340;
+    }
+
+    .score-row {
+        grid-column: auto !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        text-align: center;
+        border: none !important;
+        margin: 0 !important;
+        padding: 12px 4px;
+    }
+
+    .score-row:nth-child(2) {
+        grid-column: 1 !important;
+    }
+
+    .score-row:nth-child(3) {
+        grid-column: 2 !important;
+    }
+
+    .score-row span {
+        font-size: 0.9rem;
+    }
+
+    .score-row strong {
+        font-size: 1.4rem;
+    }
+
+    .score-row strong small {
+        font-size: 0.7rem;
+    }
+}
